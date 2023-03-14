@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Button from "@mui/material/Button";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { Avatar } from "@mui/material";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -17,7 +18,22 @@ export default function Home() {
         <Button variant="contained">Hello World</Button>
 
         {session ? (
-          <div>Logeado como : {session.user?.email} <Button variant="contained" onClick={()=> {signOut()}}>Disconnect</Button></div>
+          <div>
+            Logeado como : {session.user?.email}
+            <Avatar
+              alt="Remy Sharp"
+              src={session.user?.image ?? ""}
+              sx={{ width: 56, height: 56 }}
+            />
+            <Button
+              variant="contained"
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Disconnect
+            </Button>
+          </div>
         ) : (
           <div>
             nop no lo estas
